@@ -47,6 +47,11 @@ def filter_datum(fields: List[str], redaction: str,
 
 
 def get_logger() -> logging.Logger:
+    """
+    Creates a user data logger
+    Return:
+        a Logger that handles user
+    """
     logger = logging.getLogger("user_data")
 
     stream_handler = logging.StreamHandler()
