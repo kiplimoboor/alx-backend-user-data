@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
+"""Module that contains class and details about user"""
+
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-
-"""Module that contains class and details about user"""
 
 Base = declarative_base()
 
