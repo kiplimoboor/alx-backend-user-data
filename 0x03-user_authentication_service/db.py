@@ -54,12 +54,6 @@ class DB:
             the first found user
         """
 
-        table_columns = set(User.__table__.columns.keys())
-        kwarg_columns = set(list(kwargs.keys()))
-
-        if not (kwarg_columns <= table_columns):
-            raise InvalidRequestError
-
         user = self._session.query(User).filter_by(**kwargs).first()
 
         if user == None:
