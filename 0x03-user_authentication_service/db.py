@@ -70,6 +70,9 @@ class DB:
             (user_id): the id of the user to be updated
             (kwargs): values columns and values to be updated
         """
+        if not kwargs:
+            raise ValueError
+
         user = self.find_user_by(id=user_id)
         columns = User.__table__.columns.keys()
 
