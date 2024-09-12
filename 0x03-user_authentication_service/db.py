@@ -2,8 +2,8 @@
 
 """DB module
 """
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine, select
+from sqlalchemy.exc import InvalidRequestError, NoResultFound
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
@@ -32,7 +32,37 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
+        """
+        Adds a new user into the database
+        Args
+            (email): the new user's email
+            (hashed_password): the new user's password
+        Return:
+            the newly created user, an instance of User
+        """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
+        return user
+
+    def find_user_by(self, **kwargs):
+        """
+        Searches users table by row name and returns the matching user
+        Args:
+            (kwargs): keyword args with user properties
+        Return:
+            the first found user
+        """
+
+        table_columns = set(User.__table__.columns.keys())
+        kwarg_columns = set(list(kwargs.keys()))
+
+        if not (kwarg_columns <= table_columns):
+            raise InvalidRequestError
+
+        user = self._session.query(User).filter_by(**kwargs).first()
+
+        if user == None:
+            raise NoResultFound
+
         return user
