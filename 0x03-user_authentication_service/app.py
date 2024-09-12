@@ -6,9 +6,9 @@ from flask import Flask, Response, jsonify
 app = Flask(__name__)
 
 
-@app.get('/', methods=['GET'])
-def root() -> Response:
-    """Root path for the app"""
+@app.route('/', methods=['GET'])
+def hello_world() -> str:
+    """ Base route for authentication service API """
     msg = {"message": "Bienvenue"}
     return jsonify(msg)
 
