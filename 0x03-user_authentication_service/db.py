@@ -68,7 +68,7 @@ class DB:
         Searches for a user and updates their data
         Args:
             (user_id): the id of the user to be updated
-            (kwargs): values columns and values to be updated
+            (kwargs): columns and values to be updated
         """
         user = self.find_user_by(id=user_id)
         columns = User.__table__.columns.keys()
