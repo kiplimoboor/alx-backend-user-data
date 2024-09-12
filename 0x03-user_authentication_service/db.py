@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
+"""DB module"""
 
-"""DB module
-"""
 from sqlalchemy import create_engine, select
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import sessionmaker
