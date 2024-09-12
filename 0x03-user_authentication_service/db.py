@@ -63,16 +63,13 @@ class DB:
 
         return user
 
-    def update_user(self, user_id, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
         Searches for a user and updates their data
         Args:
             (user_id): the id of the user to be updated
             (kwargs): values columns and values to be updated
         """
-        if not kwargs:
-            raise ValueError
-
         user = self.find_user_by(id=user_id)
         columns = User.__table__.columns.keys()
 
