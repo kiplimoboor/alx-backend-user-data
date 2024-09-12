@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """DB module"""
 
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, update
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
@@ -62,3 +62,20 @@ class DB:
             raise NoResultFound
 
         return user
+
+    def update_user(self, user_id, **kwargs) -> None:
+        """
+        Searches for a user and updates their data
+        Args:
+            (user_id): the id of the user to be updated
+            (kwargs): values columns and values to be updated
+        """
+        user = self.find_user_by(id=user_id)
+        columns = User.__table__.columns.keys()
+
+        for key, val in kwargs.items():
+            if key not in columns:
+                raise ValueError
+            setattr(user, key, val)
+
+        self._session.commit()
