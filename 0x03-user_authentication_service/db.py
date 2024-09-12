@@ -55,8 +55,10 @@ class DB:
             the first found user
         """
 
-        user = self._session.query(User).filter_by(**kwargs).first()
+        if not kwargs:
+            raise InvalidRequestError
 
+        user = self._session.query(User).filter_by(**kwargs).first()
         if user == None:
             raise NoResultFound
 
