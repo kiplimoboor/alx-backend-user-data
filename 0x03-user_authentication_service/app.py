@@ -10,7 +10,7 @@ AUTH = Auth()
 
 
 @app.route('/', methods=['GET'])
-def root() -> str:
+def root():
     """ root route for the api service """
     msg = {"message": "Bienvenue"}
     return jsonify(msg)
