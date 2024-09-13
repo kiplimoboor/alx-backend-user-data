@@ -40,7 +40,7 @@ def login():
         abort(401)
 
     AUTH.create_session(email)
-    return jsonify({"email": email, "message": "logged in"})
+    return jsonify({"email": email, "message": "logged in"}), 200
 
 
 if __name__ == "__main__":
