@@ -67,7 +67,7 @@ def profile():
     if user is None:
         abort(403)
 
-    return jsonify({"user": user.email})
+    return jsonify({"user": user.email}), 200
 
 
 if __name__ == "__main__":
