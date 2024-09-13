@@ -2,6 +2,7 @@
 """Module for auth functions"""
 
 import uuid
+from typing import Union
 
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
@@ -82,5 +83,19 @@ class Auth:
             session_id = _generate_uuid()
             self._db.update_user(user.id, session_id=session_id)
             return session_id
+        except NoResultFound:
+            return None
+
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+        """
+        Gets user based on their session id
+        Args:
+            (session_id): the provided session id
+        Return:
+            the user, otherwise None
+        """
+
+        try:
+            return self._db.find_user_by(session_id=session_id)
         except NoResultFound:
             return None
