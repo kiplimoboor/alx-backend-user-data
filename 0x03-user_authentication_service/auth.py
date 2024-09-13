@@ -10,6 +10,23 @@ from db import DB
 from user import User
 
 
+def _hash_password(password: str) -> bytes:
+    """
+        Hashes a password
+        Args:
+            (password): the password to be hashed
+        Return
+            the hashed password in byte format
+        """
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode(), salt)
+
+
+def _generate_uuid() -> str:
+    """Generates and returns a string representation of a uuid"""
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database."""
 
@@ -51,24 +68,3 @@ class Auth:
             return bcrypt.checkpw(password.encode(), hashed.encode())
         except NoResultFound:
             return False
-
-
-def _hash_password(password: str) -> bytes:
-    """
-        Hashes a password
-        Args:
-            (password): the password to be hashed
-        Return
-            the hashed password in byte format
-        """
-    salt = bcrypt.gensalt()
-    return bcrypt.hashpw(password.encode(), salt)
-
-
-def _generate_uuid() -> str:
-    """
-    Generates a uuid4 instance
-    Return:
-        A string representation of the generated uuid4
-    """
-    return str(uuid.uuid4)
