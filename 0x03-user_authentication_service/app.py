@@ -67,7 +67,7 @@ def profile():
     if user is None:
         abort(403)
 
-    return jsonify({"user": user.email}), 200
+    return jsonify({"email": user.email}), 200
 
 
 @app.route('/reset_password', methods=['POST'])
